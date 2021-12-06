@@ -1,0 +1,16 @@
+{
+  "name": "advent-of-code-2021",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shellyyip/advent-of-code-2021.git"
+  },
+  "author": "Shelly Yip",
+  "license": "UNLICENSED"
+}
