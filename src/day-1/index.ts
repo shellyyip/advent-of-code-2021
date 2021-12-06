@@ -1,4 +1,4 @@
-const getAnswer = () => {
+export const getAnswer = () => {
   return "Hello world!";
 };
 
