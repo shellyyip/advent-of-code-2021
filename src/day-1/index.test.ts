@@ -1,4 +1,4 @@
-import { getValsFromFile, getAnswer } from "./index";
+import { getValsFromFile, getAnswerPartOne } from "./index";
 
 describe("Day one", () => {
   it("can run tests", () => {
@@ -12,7 +12,7 @@ describe("Day one", () => {
     expect(actualVal).toEqual(expectedVal);
   });
 
-  it.skip("generates the correct answer for test input", () => {
-    expect(getAnswer()).toEqual(7);
+  it("generates the correct answer for test input", () => {
+    expect(getAnswerPartOne("./test-input.txt")).toEqual(7);
   });
 });
