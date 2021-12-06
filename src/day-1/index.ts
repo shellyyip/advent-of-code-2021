@@ -4,8 +4,7 @@ const path = require("path");
 export const getValsFromFile = (filename: string): Number[] => {
   try {
     const data = fs.readFileSync(path.join(__dirname, filename), "utf8");
-    console.log("filename is ", filename);
-    return data;
+    return data.split("\n").map((el) => parseInt(el));
   } catch (err) {
     console.error(err);
   }
