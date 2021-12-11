@@ -1,16 +1,6 @@
-const fs = require("fs");
-const path = require("path");
+import { getValsFromFile, mapStringsToNumbers } from "../utils";
 
-export const getValsFromFile = (filename: string): Number[] => {
-  try {
-    const data = fs.readFileSync(path.join(__dirname, filename), "utf8");
-    return data.split("\n").map((el) => parseInt(el));
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-const countIncreases = (nums: Number[]): Number => {
+export const countIncreases = (nums: number[]): number => {
   let result = 0;
 
   let prev = nums[0];
@@ -28,10 +18,42 @@ const countIncreases = (nums: Number[]): Number => {
   return result;
 };
 
-export const getAnswerPartOne = (inputFilename) => {
-  const input = getValsFromFile(inputFilename);
+export const getAnswerPartOne = async (
+  inputFilename: string
+): Promise<number> => {
+  const input = mapStringsToNumbers(await getValsFromFile(inputFilename));
   const answer = countIncreases(input);
   return answer;
 };
 
+export const getSumOfWindow = (measurements: number[]): number =>
+  measurements.reduce((a, b) => a + b);
+
+export const getWindowSums = (measurements: number[]): number[] => {
+  const result = [];
+  const currWindow = [];
+
+  // Go through every measurement.
+  // Fill the window until it is length 3.
+  // If it's length 3 and we are adding another measurement, remove the first el.
+
+  for (const m of measurements) {
+    currWindow.push(m);
+    if (currWindow.length > 3) {
+      currWindow.shift();
+      result.push(getSumOfWindow(currWindow));
+    } else if (currWindow.length === 3) {
+      result.push(getSumOfWindow(currWindow));
+    }
+  }
+
+  return result;
+};
+export const getAnswerPartTwo = async (inputFilename) => {
+  const input = mapStringsToNumbers(await getValsFromFile(inputFilename));
+  const answer = countIncreases(getWindowSums(input));
+  return answer;
+};
+
 console.log("Day 1 Part 1's answer is: " + getAnswerPartOne("./input.txt"));
+console.log("Day 1 Part 2's answer is: " + getAnswerPartTwo("./input.txt"));
