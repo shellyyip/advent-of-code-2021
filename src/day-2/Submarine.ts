@@ -1,6 +1,6 @@
 interface Submarine {
   horizPos: number;
-  depthPos: number;
+  depth: number;
 }
 
 const validDirections = ["forward", "down", "up"] as const;
@@ -9,8 +9,7 @@ type Direction = typeof validDirections[number];
 class Submarine implements Submarine {
   constructor() {
     this.horizPos = 0;
-    this.depthPos = 0;
-    //this["forward"] = this.forward.bind(this);
+    this.depth = 0;
   }
 
   isOfTypeDirection(maybeDir: string | Direction): maybeDir is Direction {
@@ -27,11 +26,12 @@ class Submarine implements Submarine {
   }
 
   down(val: number) {
-    this.depthPos += val;
+    this.depth += val;
   }
 
   up(val: number) {
-    this.depthPos -= val;
+    this.depth -= val;
   }
 }
+
 export default Submarine;
