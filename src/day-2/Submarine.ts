@@ -3,18 +3,26 @@ interface Submarine {
   depthPos: number;
 }
 
+const validDirections = ["forward", "down", "up"] as const;
+type Direction = typeof validDirections[number];
+
 class Submarine implements Submarine {
   constructor() {
     this.horizPos = 0;
     this.depthPos = 0;
+    //this["forward"] = this.forward.bind(this);
   }
 
-  extractDirAndVal(step: string): [string, number] {
-    const stepTuple = step.split(" ");
-    return [stepTuple[0], parseInt(stepTuple[1])];
+  isOfTypeDirection(maybeDir: string | Direction): maybeDir is Direction {
+    return validDirections.includes(maybeDir as Direction);
   }
 
-  forward(val: number) {
+  extractDirAndVal(step: string): [Direction, number] {
+    const [dir, val] = step.split(" ");
+    return [dir as Direction, parseInt(val)];
+  }
+
+  forward(val: number): void {
     this.horizPos += val;
   }
 

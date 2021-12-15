@@ -1,4 +1,6 @@
 import Submarine from "./Submarine";
+import { getValsFromFile } from "../utils";
+import { moveSubmarine } from "./index";
 
 describe("day 2", () => {
   describe("Submarine class", () => {
@@ -45,5 +47,13 @@ describe("day 2", () => {
         });
       }
     );
+  });
+
+  it("calculates the correct answer", async () => {
+    const actual = moveSubmarine(
+      await getValsFromFile("./day-2/test-input.txt")
+    );
+    const expected = 150;
+    expect(actual).toEqual(expected);
   });
 });
