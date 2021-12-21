@@ -1,8 +1,12 @@
-import { getValsFromFile, mapStringsToNumbers } from "./utils";
+import { readFile, getValsFromFile, mapStringsToNumbers } from "./utils";
 
 describe("utils", () => {
-  describe("readFile", () => {
-    it("can read a file", async () => {
+  it("can read a file", async () => {
+    const actual = await readFile("./day-4/test-input.txt");
+    //console.log(actual);
+  });
+  describe("getValsFromFile", () => {
+    it("can get an array of strings from a file", async () => {
       const actual = await getValsFromFile("./day-1/test-input.txt");
       const expected = [
         "199",
