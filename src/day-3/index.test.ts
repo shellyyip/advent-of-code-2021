@@ -5,7 +5,8 @@ import {
   convertBinaryToInteger,
   getRate,
   getPowerConsumption,
-  getRating,
+  getRatingInBinary,
+  getLifeSupportRating,
 } from "./index";
 
 describe("day 3", () => {
@@ -31,6 +32,12 @@ describe("day 3", () => {
       "least"
     );
     const expected = "0";
+    expect(actual).toEqual(expected);
+  });
+
+  it("returns 1 if 0 and 1 are equally common", () => {
+    const actual = getCommonBit(["0", "1"], "most");
+    const expected = "1";
     expect(actual).toEqual(expected);
   });
 
@@ -60,15 +67,28 @@ describe("day 3", () => {
 
   it("can get the correct oxygen generator rating", async () => {
     const testData = await getValsFromFile("./day-3/test-input.txt");
-    const actual = getRating(testData, "oxygen-generator");
-    const expected = 23;
+    const actual = getRatingInBinary(testData, "oxygen-generator");
+    const expected = "10111";
     expect(actual).toEqual(expected);
   });
 
   it("can get the correct CO2 scrubber rating", async () => {
     const testData = await getValsFromFile("./day-3/test-input.txt");
-    const actual = getRating(testData, "co2-scrubber");
-    const expected = 10;
+    const actual = getRatingInBinary(testData, "co2-scrubber");
+    const expected = "01010";
+    expect(actual).toEqual(expected);
+  });
+  it("can get the correct CO2 scrubber rating", async () => {
+    const testData = await getValsFromFile("./day-3/test-input.txt");
+    const actual = getRatingInBinary(testData, "co2-scrubber");
+    const expected = "01010";
+    expect(actual).toEqual(expected);
+  });
+
+  it("can get the correct life support rating", async () => {
+    const testData = await getValsFromFile("./day-3/test-input.txt");
+    const actual = getLifeSupportRating(testData);
+    const expected = 230;
     expect(actual).toEqual(expected);
   });
 });

@@ -32,7 +32,7 @@ export const getCommonBit = (col: string[], type: "most" | "least"): string => {
     counts.set(el, counts.get(el) + 1);
   }
 
-  let mostCommonKey = undefined;
+  let mostCommonKey = "1";
   for (const [key, val] of Array.from(counts.entries())) {
     if (mostCommonKey === undefined || val > counts.get(mostCommonKey)) {
       mostCommonKey = key;
@@ -68,20 +68,46 @@ export function getPowerConsumption(data: string[]): number {
   return gammaRate * epsilonRate;
 }
 
-export function getRating(
+export function getRatingInBinary(
   initialData: string[],
   type: "oxygen-generator" | "co2-scrubber"
-): number {
-  const data = [...initialData];
-  const columns = rotateArray(initialData);
+): string {
+  let remainingData = [...initialData];
+  let columns = rotateArray(remainingData);
+  const commonBitType = type === "oxygen-generator" ? "most" : "least";
 
   // For each column, from first to fifth...
-  // Find the most common bit in this column.
-  // Filter out all nums from orig. data that do not have this bit in this column.
+  for (let i = 0; i < columns.length; i++) {
+    const column = columns[i];
+    // Find the most common bit in this column.
+    const sigBit = getCommonBit(column.split(""), commonBitType);
 
-  return convertBinaryToInteger(data[0]);
+    // Filter out all nums from orig. data that do not have this bit in this column.
+    remainingData = remainingData.filter((datum) => datum[i] === sigBit);
+    if (remainingData.length === 1) {
+      return remainingData[0];
+    }
+    columns = rotateArray(remainingData);
+  }
+}
+
+export function getLifeSupportRating(data: string[]): number {
+  const oxygenGenRating = convertBinaryToInteger(
+    getRatingInBinary(data, "oxygen-generator")
+  );
+  const co2ScrubRating = convertBinaryToInteger(
+    getRatingInBinary(data, "co2-scrubber")
+  );
+  return oxygenGenRating * co2ScrubRating;
 }
 
 (async function () {
-  console.log(getPowerConsumption(await getValsFromFile("./day-3/input.txt")));
+  console.log(
+    "Power Consumption: ",
+    getPowerConsumption(await getValsFromFile("./day-3/input.txt"))
+  );
+  console.log(
+    "Life Support: ",
+    getLifeSupportRating(await getValsFromFile("./day-3/input.txt"))
+  );
 })();
