@@ -158,15 +158,15 @@ function findLastWinningGame(Game: BingoGame): BingoBoard | null {
   return board;
 }
 
-(async function () {
-  const Game = new BingoGame(await readFile("./day-4/input.txt"));
-  Game.run();
-  console.log(Game);
-  console.log(
-    "first winning game: ",
-    Game.boards[Game.winningBoardIndices[0]].score
-  );
-  console.log("last winning game: ", findLastWinningGame(Game)?.score);
-})();
+// (async function () {
+//   const Game = new BingoGame(await readFile("./day-4/input.txt"));
+//   Game.run();
+//   console.log(Game);
+//   console.log(
+//     "first winning game: ",
+//     Game.boards[Game.winningBoardIndices[0]].score
+//   );
+//   console.log("last winning game: ", findLastWinningGame(Game)?.score);
+// })();
 
 export { BingoGame, BingoBoard };
